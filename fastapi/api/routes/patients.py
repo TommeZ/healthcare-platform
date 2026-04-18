@@ -2,14 +2,21 @@ from fastapi import APIRouter
 from api.schemas.patient import PatientCreate
 from api import models
 from api.deps import db_dependency
+from typing import Optional
 
 router = APIRouter(
     prefix="/patients"
 )
 
 @router.get("/")
-def get_patients(db: db_dependency, skip: int = 0, limit: int = 10):
-    db.query(models.Patient).offset(skip).limit(limit).all()
+def get_patients(db: db_dependency, skip: int = 0, limit: int = 10, name: Optional[str] = None):
+    
+    query = db.query(models.Patient)
+
+    if name:
+        query = query.filter(models.Patient.name.contains(name))
+
+    return query.offset(skip).limit(limit).all()
 
 
 @router.get("/{patient_id}")
