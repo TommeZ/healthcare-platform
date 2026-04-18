@@ -8,14 +8,13 @@ router = APIRouter(
 )
 
 @router.get("/")
-def get_patients(db: db_dependency):
-    return db.query(models.Patient).all()
+def get_patients(db: db_dependency, skip: int = 0, limit: int = 10):
+    db.query(models.Patient).offset(skip).limit(limit).all()
 
 
 @router.get("/{patient_id}")
 def get_patient(patient_id: int, db: db_dependency):
     return db.query(models.Patient).filter(models.Patient.id == patient_id).first()
-
 
 @router.post("/")
 def create_patient(patient: PatientCreate, db: db_dependency):
