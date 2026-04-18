@@ -6,8 +6,7 @@ export default async function Home() {
   const patients: Patient[] = await getPatients();
 
   return (
-    <div>
-      <h1>Patients</h1>
+    <div className="max-w-3xl p-8">
       <PatientsTable patients={patients} />
     </div>
   );
