@@ -1,5 +1,39 @@
 # Healthcare Platform (Backend)
 
+## Running the Frontend (Next.js)
+
+1. Navigate to the frontend folder:
+
+```bash
+cd app
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+4. Open in your browser:
+
+```text
+http://localhost:3000
+```
+
+---
+
+The frontend will communicate with the backend API running on:
+
+```text
+http://localhost:8000
+```
+
 ## Running the API locally
 
 1. Navigate to the backend folder:
