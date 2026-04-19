@@ -12,8 +12,24 @@ import {
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { createPatient } from "@/lib/api";
+import { useState } from "react";
 
 export function AddPatientDialog() {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    await createPatient({
+      name,
+      age: Number(age),
+      gender,
+    });
+  };
+
   return (
     <Dialog>
       <form>
@@ -23,26 +39,37 @@ export function AddPatientDialog() {
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle>Add Patient</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
-            </DialogDescription>
+            <DialogDescription>Add new patient here</DialogDescription>
           </DialogHeader>
           <FieldGroup>
             <Field>
               <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+              <Input
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </Field>
             <Field>
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
+              <Label>Age</Label>
+              <Input value={age} onChange={(e) => setAge(e.target.value)} />
+            </Field>
+            <Field>
+              <Label>Gender</Label>
+              <Input
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              />
             </Field>
           </FieldGroup>
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" onSubmit={handleSubmit}>
+              Save changes
+            </Button>
           </DialogFooter>
         </DialogContent>
       </form>
