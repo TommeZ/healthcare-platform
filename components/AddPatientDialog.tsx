@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,29 +17,41 @@ import { Label } from "@/components/ui/label";
 import { createPatient } from "@/lib/api";
 import { useState } from "react";
 
-export function AddPatientDialog() {
+export function AddPatientDialog({ onAdd }: { onAdd: () => void }) {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await createPatient({
-      name,
-      age: Number(age),
-      gender,
-    });
+    try {
+      await createPatient({
+        name,
+        age: Number(age),
+        gender,
+      });
+
+      onAdd();
+
+      setOpen(false);
+      setName("");
+      setAge("");
+      setGender("");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    <Dialog>
-      <form>
-        <DialogTrigger asChild>
-          <Button variant="outline">Add Patient</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-sm">
-          <DialogHeader>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline">Add Patient</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-sm">
+        <form onSubmit={handleSubmit}>
+          <DialogHeader className="mb-3">
             <DialogTitle>Add Patient</DialogTitle>
             <DialogDescription>Add new patient here</DialogDescription>
           </DialogHeader>
@@ -63,16 +77,14 @@ export function AddPatientDialog() {
               />
             </Field>
           </FieldGroup>
-          <DialogFooter>
+          <DialogFooter className="mt-6">
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit" onSubmit={handleSubmit}>
-              Save changes
-            </Button>
+            <Button type="submit">Save changes</Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   );
 }

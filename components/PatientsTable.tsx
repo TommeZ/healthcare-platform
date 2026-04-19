@@ -1,8 +1,7 @@
 import { useId } from "react";
 
-import { ArchiveIcon, PencilIcon, Trash2Icon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -68,7 +67,7 @@ export function PatientsTable({ patients }: { patients: Patient[] }) {
         </Table>
       </div>
       <p className="text-muted-foreground mt-4 text-center text-sm">
-        Patient Table
+        Patient Records
       </p>
     </div>
   );
