@@ -4,3 +4,9 @@ export type Patient = {
   age: number;
   gender: string;
 };
+
+export type Prescription = {
+  id: number;
+  medication: string;
+  status: string;
+};
