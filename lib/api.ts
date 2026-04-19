@@ -31,3 +31,15 @@ export async function createPatient(data: {
 
   return res.json();
 }
+
+export async function deletePatient(id: number) {
+  const res = await fetch(`http://localhost:8000/patients/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to delete patient");
+  }
+
+  return res.json();
+}

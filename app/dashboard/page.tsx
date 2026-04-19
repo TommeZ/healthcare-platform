@@ -5,7 +5,7 @@ import { PatientsTable } from "@/components/PatientsTable";
 import { SearchBar } from "@/components/SearchBar";
 import { useEffect, useState } from "react";
 import { Patient } from "../types";
-import { getPatients } from "@/lib/api";
+import { deletePatient, getPatients } from "@/lib/api";
 import { AddPatientDialog } from "@/components/AddPatientDialog";
 
 export default function Dashboard() {
@@ -25,6 +25,11 @@ export default function Dashboard() {
     setPatients(data);
   };
 
+  const handleDelete = async (id: number) => {
+    await deletePatient(id);
+    await refreshPatients();
+  };
+
   return (
     <div className="p-8 max-w-3xl mx-auto w-full flex flex-col gap-4">
       <div className="flex  justify-between">
@@ -33,7 +38,7 @@ export default function Dashboard() {
         </div>
         <AddPatientDialog onAdd={refreshPatients} />
       </div>
-      <PatientsTable patients={patients} />
+      <PatientsTable patients={patients} onDelete={handleDelete} />
     </div>
   );
 }

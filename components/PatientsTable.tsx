@@ -14,7 +14,13 @@ import {
 } from "@/components/ui/table";
 import { Patient } from "@/app/types";
 
-export function PatientsTable({ patients }: { patients: Patient[] }) {
+export function PatientsTable({
+  patients,
+  onDelete,
+}: {
+  patients: Patient[];
+  onDelete: (id: number) => void;
+}) {
   const id = useId();
 
   return (
@@ -57,6 +63,7 @@ export function PatientsTable({ patients }: { patients: Patient[] }) {
                     size="icon"
                     className="rounded-full"
                     aria-label={`product-${patient.id}-remove`}
+                    onClick={() => onDelete(patient.id)}
                   >
                     <Trash2Icon />
                   </Button>
