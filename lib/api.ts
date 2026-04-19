@@ -1,15 +1,13 @@
-import { NextResponse } from "next/server";
-
 export async function getPatients(name?: string) {
-  try {
-    const res = await fetch("http://localhost:8000/patients");
-    return res.json();
-  } catch (error) {
-    console.error("Failed to fetch:", error);
+  const url = name
+    ? `http://localhost:8000/patients?name=${name}`
+    : "http://localhost:8000/patients";
 
-    return NextResponse.json(
-      { error: "Failed to fetch patients" },
-      { status: 500 },
-    );
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch patients");
   }
+
+  return res.json();
 }

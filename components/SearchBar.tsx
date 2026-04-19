@@ -3,16 +3,20 @@
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export function SearchBar() {
+export function SearchBar({ onSearch }: { onSearch: (value: string) => void }) {
   const [query, setQuery] = useState("");
-  const handleSearch = useEffect(() => {}, [query]);
 
   return (
     <Field orientation="horizontal">
-      <Input type="search" placeholder="Search..." />
-      <Button>Search</Button>
+      <Input
+        type="search"
+        placeholder="Search..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <Button onClick={() => onSearch(query)}>Search</Button>
     </Field>
   );
 }
