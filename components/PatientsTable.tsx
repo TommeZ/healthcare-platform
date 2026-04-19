@@ -30,31 +30,34 @@ export function PatientsTable({ patients }: { patients: Patient[] }) {
               <TableHead>Name</TableHead>
               <TableHead>Age</TableHead>
               <TableHead>Gender</TableHead>
-              <TableHead className="w-0">Actions</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="w-24">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {patients.map((p) => (
+            {patients.map((patient) => (
               <TableRow
-                key={p.id}
+                key={patient.id}
                 className="has-data-[state=checked]:bg-muted/50"
               >
                 <TableCell>
                   <Checkbox
-                    id={`table-checkbox-${p.id}`}
-                    aria-label={`product-checkbox-${p.id}`}
+                    id={`table-checkbox-${patient.id}`}
+                    aria-label={`product-checkbox-${patient.id}`}
                   />
                 </TableCell>
-                <TableCell>{p.name}</TableCell>
-                <TableCell>{p.id}</TableCell>
-                <TableCell>{p.age}</TableCell>
-                <TableCell>{p.gender}</TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-3">{patient.name}</div>
+                </TableCell>
+                <TableCell>{patient.age}</TableCell>
+                <TableCell>{patient.gender}</TableCell>
+                <TableCell>{patient.gender}</TableCell>
                 <TableCell className="flex items-center gap-1">
                   <Button
                     variant="ghost"
                     size="icon"
                     className="rounded-full"
-                    aria-label={`product-${p.id}-edit`}
+                    aria-label={`product-${patient.id}-edit`}
                   >
                     <PencilIcon />
                   </Button>
@@ -62,7 +65,7 @@ export function PatientsTable({ patients }: { patients: Patient[] }) {
                     variant="ghost"
                     size="icon"
                     className="rounded-full"
-                    aria-label={`product-${p.id}-remove`}
+                    aria-label={`product-${patient.id}-remove`}
                   >
                     <Trash2Icon />
                   </Button>
@@ -70,7 +73,7 @@ export function PatientsTable({ patients }: { patients: Patient[] }) {
                     variant="ghost"
                     size="icon"
                     className="rounded-full"
-                    aria-label={`product-${p.id}-archive`}
+                    aria-label={`product-${patient.id}-archive`}
                   >
                     <ArchiveIcon />
                   </Button>
