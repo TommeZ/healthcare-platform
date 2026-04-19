@@ -1,27 +1,14 @@
 "use client";
 
-import { PatientsTable } from "@/components/PatientsTable";
-import { getPatients } from "../lib/api";
-import { Patient } from "./types";
-import { SearchBar } from "@/components/SearchBar";
-import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
-  const [patients, setPatients] = useState<Patient[]>([]);
-
-  useEffect(() => {
-    getPatients().then(setPatients);
-  }, []);
-
-  const handleSearch = async (query: string) => {
-    const data = await getPatients(query);
-    setPatients(data);
-  };
-
   return (
-    <div className="p-8 max-w-3xl mx-auto w-full flex flex-col gap-4">
-      <SearchBar onSearch={handleSearch} />
-      <PatientsTable patients={patients} />
+    <div className="h-screen flex items-center justify-center">
+      <Link href="/dashboard">
+        <Button>Login</Button>
+      </Link>
     </div>
   );
 }

@@ -31,7 +31,7 @@ export function PatientsTable({ patients }: { patients: Patient[] }) {
               <TableHead>Age</TableHead>
               <TableHead>Gender</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="w-24">Actions</TableHead>
+              <TableHead>Delete</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -57,25 +57,9 @@ export function PatientsTable({ patients }: { patients: Patient[] }) {
                     variant="ghost"
                     size="icon"
                     className="rounded-full"
-                    aria-label={`product-${patient.id}-edit`}
-                  >
-                    <PencilIcon />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full"
                     aria-label={`product-${patient.id}-remove`}
                   >
                     <Trash2Icon />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full"
-                    aria-label={`product-${patient.id}-archive`}
-                  >
-                    <ArchiveIcon />
                   </Button>
                 </TableCell>
               </TableRow>
