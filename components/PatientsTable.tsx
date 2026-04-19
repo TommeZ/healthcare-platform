@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Patient } from "@/app/types";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function PatientsTable({
   patients,
@@ -25,7 +25,6 @@ export function PatientsTable({
   onDelete: (id: number) => void;
 }) {
   const id = useId();
-  const router = useRouter();
 
   return (
     <div className="w-full">
@@ -46,8 +45,7 @@ export function PatientsTable({
             {patients.map((patient) => (
               <TableRow
                 key={patient.id}
-                className="has-data-[state=checked]:bg-muted/50 cursor-pointer"
-                onClick={() => router.push(`/patients/${patient.id}`)}
+                className="has-data-[state=checked]:bg-muted/50 "
               >
                 <TableCell>
                   <Checkbox
@@ -56,7 +54,14 @@ export function PatientsTable({
                   />
                 </TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-3">{patient.name}</div>
+                  <div className="flex items-center gap-3">
+                    <Link
+                      className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer transition-colors"
+                      href={`/patients/${patient.id}`}
+                    >
+                      {patient.name}
+                    </Link>
+                  </div>
                 </TableCell>
                 <TableCell>{patient.age}</TableCell>
                 <TableCell>{patient.gender}</TableCell>
