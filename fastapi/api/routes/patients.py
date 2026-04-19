@@ -1,8 +1,11 @@
 from fastapi import APIRouter
 from api.schemas.patient import PatientCreate
+from api.schemas.prescription import PrescriptionCreate
 from api import models
 from api.deps import db_dependency
 from typing import Optional
+from sqlalchemy.orm import joinedload
+
 
 router = APIRouter(
     prefix="/patients"
@@ -21,7 +24,17 @@ def get_patients(db: db_dependency, skip: int = 0, limit: int = 10, name: Option
 
 @router.get("/{patient_id}")
 def get_patient(patient_id: int, db: db_dependency):
-    return db.query(models.Patient).filter(models.Patient.id == patient_id).first()
+    patient = (
+        db.query(models.Patient)
+        .options(joinedload(models.Patient.prescriptions))
+        .filter(models.Patient.id == patient_id)
+        .first()
+    )
+
+    if not patient:
+        return {"error": "Patient not found"}
+
+    return patient
 
 @router.post("/")
 def create_patient(patient: PatientCreate, db: db_dependency):
@@ -65,3 +78,21 @@ def delete_patient(patient_id: int, db: db_dependency):
     db.commit()
 
     return {"message": "Patient deleted"}
+
+@router.post("/{patient_id}/prescriptions")
+def add_prescription(patient_id: int, prescription: PrescriptionCreate, db: db_dependency):
+    patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
+
+    if not patient:
+        return {"error": "Patient not found"}
+
+    new_prescription = models.Prescription(
+        medication=prescription.medication, 
+        patient_id=patient_id
+    )
+
+    db.add(new_prescription)
+    db.commit()
+    db.refresh(new_prescription)
+
+    return new_prescription

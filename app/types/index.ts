@@ -3,6 +3,7 @@ export type Patient = {
   name: string;
   age: number;
   gender: string;
+  prescriptions?: Prescription[];
 };
 
 export type Prescription = {
