@@ -1,3 +1,5 @@
+"use client";
+
 import { useId } from "react";
 
 import { Trash2Icon } from "lucide-react";
@@ -13,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Patient } from "@/app/types";
+import { useRouter } from "next/navigation";
 
 export function PatientsTable({
   patients,
@@ -22,6 +25,7 @@ export function PatientsTable({
   onDelete: (id: number) => void;
 }) {
   const id = useId();
+  const router = useRouter();
 
   return (
     <div className="w-full">
@@ -35,7 +39,6 @@ export function PatientsTable({
               <TableHead>Name</TableHead>
               <TableHead>Age</TableHead>
               <TableHead>Gender</TableHead>
-              <TableHead>Status</TableHead>
               <TableHead>Delete</TableHead>
             </TableRow>
           </TableHeader>
@@ -43,7 +46,8 @@ export function PatientsTable({
             {patients.map((patient) => (
               <TableRow
                 key={patient.id}
-                className="has-data-[state=checked]:bg-muted/50"
+                className="has-data-[state=checked]:bg-muted/50 cursor-pointer"
+                onClick={() => router.push(`/patients/${patient.id}`)}
               >
                 <TableCell>
                   <Checkbox
@@ -56,14 +60,16 @@ export function PatientsTable({
                 </TableCell>
                 <TableCell>{patient.age}</TableCell>
                 <TableCell>{patient.gender}</TableCell>
-                <TableCell>{patient.gender}</TableCell>
                 <TableCell className="flex items-center gap-1">
                   <Button
                     variant="ghost"
                     size="icon"
                     className="rounded-full"
                     aria-label={`product-${patient.id}-remove`}
-                    onClick={() => onDelete(patient.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(patient.id);
+                    }}
                   >
                     <Trash2Icon />
                   </Button>
