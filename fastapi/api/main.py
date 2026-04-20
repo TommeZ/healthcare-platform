@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.routes import patients
 from api.database import engine
 from api import models
+from api.routes import prescriptions
 
 app = FastAPI()
 
@@ -17,5 +18,6 @@ app.add_middleware(
 )
 
 app.include_router(patients.router)
+app.include_router(prescriptions.router)
 
 
