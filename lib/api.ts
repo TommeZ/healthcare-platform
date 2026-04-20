@@ -107,3 +107,19 @@ export async function updatePrescriptionStatus(
 
   return res.json();
 }
+
+export async function getPrescriptions(status?: string) {
+  let url = "http://localhost:8000/patients/prescriptions";
+
+  if (status) {
+    url += `?status=${status}`;
+  }
+
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch prescriptions");
+  }
+
+  return res.json();
+}

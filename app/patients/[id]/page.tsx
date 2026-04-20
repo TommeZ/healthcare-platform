@@ -4,6 +4,7 @@ import { useEffect, useState, use } from "react";
 import { Patient } from "@/app/types";
 import { PrescriptionsTable } from "@/components/PrescriptionsTable";
 import { addPrescription, getPatient } from "@/lib/api";
+import { RadioDropdown } from "@/components/RadioDropdown";
 
 export default function PatientDetails({
   params,
@@ -11,11 +12,11 @@ export default function PatientDetails({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
-
   const patientId = Number(id);
 
   const [patient, setPatient] = useState<Patient | null>(null);
   const [medication, setMedication] = useState("");
+  const [status, setStatus] = useState<string | undefined>();
 
   useEffect(() => {
     getPatient(patientId)
@@ -32,12 +33,16 @@ export default function PatientDetails({
     if (!medication.trim()) return;
 
     await addPrescription(patientId, { medication });
-
     setMedication("");
     await refreshPatient();
   };
 
   if (!patient) return <div>Loading...</div>;
+
+  const filteredPrescriptions =
+    status && patient.prescriptions
+      ? patient.prescriptions.filter((p) => p.status === status)
+      : patient.prescriptions;
 
   return (
     <div className="p-8 max-w-3xl mx-auto">
@@ -45,27 +50,48 @@ export default function PatientDetails({
       <p>Age: {patient.age}</p>
       <p>Gender: {patient.gender}</p>
 
+      {/* Add Prescription */}
       <div className="mt-6">
         <h3 className="font-semibold mb-2">Add Prescription</h3>
 
-        <input
-          value={medication}
-          onChange={(e) => setMedication(e.target.value)}
-          placeholder="Medication"
-          className="border p-2 mr-2"
-        />
+        <div className="flex gap-2">
+          <input
+            value={medication}
+            onChange={(e) => setMedication(e.target.value)}
+            placeholder="Medication"
+            className="border p-2 rounded w-full"
+          />
 
-        <button onClick={handleAddPrescription} disabled={!medication.trim()}>
-          Add
-        </button>
+          <button
+            onClick={handleAddPrescription}
+            disabled={!medication.trim()}
+            className="border px-4 py-2 rounded"
+          >
+            Add
+          </button>
+        </div>
       </div>
 
+      {/* Prescriptions */}
       <div className="mt-6">
-        <h3 className="font-semibold mb-2">Prescriptions</h3>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="font-semibold">Prescriptions</h3>
 
-        {patient.prescriptions && patient.prescriptions.length > 0 ? (
+          <RadioDropdown
+            value={status || "All"}
+            onChange={(value) => setStatus(value === "All" ? undefined : value)}
+            options={[
+              { label: "All", value: "All" },
+              { label: "Pending", value: "Pending" },
+              { label: "Approved", value: "Approved" },
+              { label: "Dispensed", value: "Dispensed" },
+            ]}
+          />
+        </div>
+
+        {filteredPrescriptions && filteredPrescriptions.length > 0 ? (
           <PrescriptionsTable
-            prescriptions={patient.prescriptions}
+            prescriptions={filteredPrescriptions}
             onStatusChange={refreshPatient}
           />
         ) : (

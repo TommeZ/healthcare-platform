@@ -1,3 +1,5 @@
+from typing import Literal, Optional
+
 from fastapi import APIRouter
 from api.schemas.prescription import PrescriptionCreate
 from api import models
@@ -6,6 +8,15 @@ from api.deps import db_dependency
 router = APIRouter(
     prefix="/patients"
 )
+
+@router.get("/prescriptions")
+def get_prescriptions(db: db_dependency, status: Optional[str] = None):
+    query = db.query(models.Prescription)
+
+    if status:
+        query = query.filter(models.Prescription.status == status)
+
+    return query.all()
 
 @router.post("/{patient_id}/prescriptions")
 def add_prescription(patient_id: int, prescription: PrescriptionCreate, db: db_dependency):
@@ -26,7 +37,11 @@ def add_prescription(patient_id: int, prescription: PrescriptionCreate, db: db_d
     return new_prescription
 
 @router.patch("/prescriptions/{prescription_id}")
-def update_prescription_status(prescription_id: int, status: str, db: db_dependency):
+def update_prescription_status(
+    prescription_id: int,
+    status: Literal["Pending", "Approved", "Dispensed"],
+    db: db_dependency
+):
     prescription = db.query(models.Prescription).filter(models.Prescription.id == prescription_id).first()
 
     if not prescription:
@@ -38,3 +53,4 @@ def update_prescription_status(prescription_id: int, status: str, db: db_depende
     db.refresh(prescription)
 
     return prescription
+
