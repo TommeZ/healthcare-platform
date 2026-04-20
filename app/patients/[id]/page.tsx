@@ -64,7 +64,10 @@ export default function PatientDetails({
         <h3 className="font-semibold mb-2">Prescriptions</h3>
 
         {patient.prescriptions && patient.prescriptions.length > 0 ? (
-          <PrescriptionsTable prescriptions={patient.prescriptions} />
+          <PrescriptionsTable
+            prescriptions={patient.prescriptions}
+            onStatusChange={refreshPatient}
+          />
         ) : (
           <p>No prescriptions</p>
         )}
