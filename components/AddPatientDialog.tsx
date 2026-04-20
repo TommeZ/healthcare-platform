@@ -26,6 +26,8 @@ export function AddPatientDialog({ onAdd }: { onAdd: () => void }) {
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!name.trim() || !age || !gender) return;
+
     try {
       await createPatient({
         name,
@@ -67,7 +69,11 @@ export function AddPatientDialog({ onAdd }: { onAdd: () => void }) {
             </Field>
             <Field>
               <Label>Age</Label>
-              <Input value={age} onChange={(e) => setAge(e.target.value)} />
+              <Input
+                type="number"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+              />
             </Field>
             <Field>
               <Label>Gender</Label>
@@ -81,7 +87,9 @@ export function AddPatientDialog({ onAdd }: { onAdd: () => void }) {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" disabled={!name.trim() || !age || !gender}>
+              Save changes
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
