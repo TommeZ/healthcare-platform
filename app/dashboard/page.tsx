@@ -25,7 +25,7 @@ export default function Dashboard() {
   };
 
   const refreshPatients = async () => {
-    const data = await getPatients();
+    const data = await getPatients(undefined, gender, age);
     setPatients(data);
   };
 
@@ -36,7 +36,7 @@ export default function Dashboard() {
 
   return (
     <div className="p-8 max-w-3xl mx-auto w-full flex flex-col gap-4">
-      <div className="flex  justify-between">
+      <div className="flex gap-2 justify-between">
         <div className="w-full max-w-sm">
           <SearchBar onSearch={handleSearch} />
         </div>
@@ -44,10 +44,11 @@ export default function Dashboard() {
         <Input
           type="number"
           placeholder="Age"
+          value={age ?? ""}
           onChange={(e) =>
             setAge(e.target.value ? Number(e.target.value) : undefined)
           }
-          className="w-26"
+          className="w-24"
         />
 
         <RadioDropdown
