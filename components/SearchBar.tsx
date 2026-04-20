@@ -1,22 +1,19 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
 
-export function SearchBar({ onSearch }: { onSearch: (value: string) => void }) {
-  const [query, setQuery] = useState("");
-
+export function SearchBar({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
   return (
-    <Field orientation="horizontal">
-      <Input
-        type="search"
-        placeholder="Search..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <Button onClick={() => onSearch(query)}>Search</Button>
-    </Field>
+    <Input
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder="Search patients..."
+    />
   );
 }

@@ -14,10 +14,15 @@ export default function Dashboard() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [gender, setGender] = useState<string | undefined>();
   const [age, setAge] = useState<number | undefined>();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    getPatients(undefined, gender, age).then(setPatients);
-  }, [gender, age]);
+    const timeout = setTimeout(() => {
+      getPatients(search || undefined, gender, age).then(setPatients);
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [search, gender, age]);
 
   const handleSearch = async (query: string) => {
     const data = await getPatients(query, gender, age);
@@ -38,7 +43,7 @@ export default function Dashboard() {
     <div className="p-8 max-w-3xl mx-auto w-full flex flex-col gap-4">
       <div className="flex gap-2 justify-between">
         <div className="w-full max-w-sm">
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar value={search} onChange={setSearch} />
         </div>
 
         <Input
