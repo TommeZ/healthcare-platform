@@ -15,20 +15,36 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
+
+  const [state, setState] = useState("login");
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
-        <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
-        </CardHeader>
+        {state == "login" ? (
+          <CardHeader>
+            <CardTitle>Login to your account</CardTitle>
+            <CardDescription>
+              Enter your email below to login to your account
+            </CardDescription>
+          </CardHeader>
+        ) : (
+          <CardHeader>
+            <CardTitle>Create your account</CardTitle>
+            <CardDescription>
+              Enter your details below to create your account
+            </CardDescription>
+          </CardHeader>
+        )}
+
         <CardContent>
           <form>
             <FieldGroup>
@@ -44,26 +60,29 @@ export function LoginForm({
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
                 </div>
                 <Input id="password" type="password" required />
               </Field>
               <Field>
-                <Link href="/dashboard">
-                  <Button type="submit">Login</Button>
-                </Link>
-
-                <Button variant="outline" type="button">
-                  Login with Google
+                <Button type="submit" onClick={() => router.push("/dashboard")}>
+                  {state === "login" ? "Login" : "Sign Up"}
                 </Button>
-                <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
-                </FieldDescription>
+
+                {state == "login" ? (
+                  <FieldDescription className="text-center">
+                    Don&apos;t have an account?{" "}
+                    <a href="#" onClick={() => setState("signup")}>
+                      Sign up
+                    </a>
+                  </FieldDescription>
+                ) : (
+                  <FieldDescription className="text-center">
+                    Have an account?{" "}
+                    <a href="#" onClick={() => setState("login")}>
+                      Login
+                    </a>
+                  </FieldDescription>
+                )}
               </Field>
             </FieldGroup>
           </form>
