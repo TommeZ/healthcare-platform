@@ -8,14 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { updatePrescriptionStatus } from "@/lib/api";
+import { RadioDropdown } from "./RadioDropdown";
 
 type Prescription = {
   id: number;
@@ -43,33 +37,18 @@ export function PrescriptionsTable({
           <TableRow key={p.id}>
             <TableCell>{p.medication}</TableCell>
             <TableCell>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="border px-2 py-1 rounded">
-                    {p.status}
-                  </button>
-                </DropdownMenuTrigger>
-
-                <DropdownMenuContent>
-                  <DropdownMenuRadioGroup
-                    value={p.status}
-                    onValueChange={async (value) => {
-                      await updatePrescriptionStatus(p.id, value);
-                      await onStatusChange();
-                    }}
-                  >
-                    <DropdownMenuRadioItem value="Pending">
-                      Pending
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="Approved">
-                      Approved
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="Dispensed">
-                      Dispensed
-                    </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <RadioDropdown
+                value={p.status}
+                onChange={async (value) => {
+                  await updatePrescriptionStatus(p.id, value);
+                  await onStatusChange();
+                }}
+                options={[
+                  { label: "Pending", value: "Pending" },
+                  { label: "Approved", value: "Approved" },
+                  { label: "Dispensed", value: "Dispensed" },
+                ]}
+              />
             </TableCell>
           </TableRow>
         ))}

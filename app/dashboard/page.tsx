@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Patient } from "../types";
 import { deletePatient, getPatients } from "@/lib/api";
 import { AddPatientDialog } from "@/components/AddPatientDialog";
+import { RadioDropdown } from "@/components/RadioDropdown";
 
 export default function Dashboard() {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -38,14 +39,15 @@ export default function Dashboard() {
           <SearchBar onSearch={handleSearch} />
         </div>
 
-        <select
-          onChange={(e) => setGender(e.target.value || undefined)}
-          className="border p-2 rounded"
-        >
-          <option value="">All</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
+        <RadioDropdown
+          value={gender || "All"}
+          onChange={(value) => setGender(value === "All" ? undefined : value)}
+          options={[
+            { label: "All", value: "All" },
+            { label: "Male", value: "Male" },
+            { label: "Female", value: "Female" },
+          ]}
+        />
 
         <AddPatientDialog onAdd={refreshPatients} />
       </div>
