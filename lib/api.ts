@@ -1,7 +1,16 @@
-export async function getPatients(name?: string) {
-  const url = name
-    ? `http://localhost:8000/patients?name=${name}`
-    : "http://localhost:8000/patients";
+export async function getPatients(name?: string, gender?: string) {
+  let url = "http://localhost:8000/patients";
+
+  const params = new URLSearchParams();
+
+  if (name) params.append("name", name);
+  if (gender) params.append("gender", gender);
+
+  const queryString = params.toString();
+
+  if (queryString) {
+    url += `?${queryString}`;
+  }
 
   const res = await fetch(url);
 

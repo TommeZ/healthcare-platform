@@ -10,13 +10,14 @@ import { AddPatientDialog } from "@/components/AddPatientDialog";
 
 export default function Dashboard() {
   const [patients, setPatients] = useState<Patient[]>([]);
+  const [gender, setGender] = useState<string | undefined>();
 
   useEffect(() => {
-    getPatients().then(setPatients);
-  }, []);
+    getPatients(undefined, gender).then(setPatients);
+  }, [gender]);
 
   const handleSearch = async (query: string) => {
-    const data = await getPatients(query);
+    const data = await getPatients(query, gender);
     setPatients(data);
   };
 
@@ -36,6 +37,16 @@ export default function Dashboard() {
         <div className="w-full max-w-sm">
           <SearchBar onSearch={handleSearch} />
         </div>
+
+        <select
+          onChange={(e) => setGender(e.target.value || undefined)}
+          className="border p-2 rounded"
+        >
+          <option value="">All</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+
         <AddPatientDialog onAdd={refreshPatients} />
       </div>
       <PatientsTable patients={patients} onDelete={handleDelete} />

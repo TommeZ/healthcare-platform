@@ -12,12 +12,18 @@ router = APIRouter(
 )
 
 @router.get("/")
-def get_patients(db: db_dependency, skip: int = 0, limit: int = 10, name: Optional[str] = None):
+def get_patients(db: db_dependency, skip: int = 0, limit: int = 10, name: Optional[str] = None, gender: Optional[str] = None, age: Optional[int] = None,):
     
     query = db.query(models.Patient)
 
     if name:
         query = query.filter(models.Patient.name.contains(name))
+
+    if gender:
+        query = query.filter(models.Patient.gender == gender)
+
+    if age:
+        query = query.filter(models.Patient.age == age)
 
     return query.offset(skip).limit(limit).all()
 
