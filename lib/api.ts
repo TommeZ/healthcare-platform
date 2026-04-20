@@ -2,26 +2,23 @@ export async function getPatients(
   name?: string,
   gender?: string,
   age?: number,
+  skip: number = 0,
+  limit: number = 10,
 ) {
-  let url = "http://localhost:8000/patients";
-
   const params = new URLSearchParams();
 
   if (name) params.append("name", name);
   if (gender) params.append("gender", gender);
   if (age) params.append("age", String(age));
 
-  const queryString = params.toString();
+  params.append("skip", String(skip));
+  params.append("limit", String(limit));
 
-  if (queryString) {
-    url += `?${queryString}`;
-  }
+  const url = `http://localhost:8000/patients?${params.toString()}`;
 
   const res = await fetch(url);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch patients");
-  }
+  if (!res.ok) throw new Error("Failed to fetch patients");
 
   return res.json();
 }

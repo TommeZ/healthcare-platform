@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from api.schemas.patient import PatientCreate
 from api.schemas.prescription import PrescriptionCreate
 from api import models
@@ -62,7 +62,7 @@ def update_patient(patient_id: int, patient: PatientCreate, db: db_dependency):
     db_patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
 
     if not db_patient:
-        return {"error": "Patient not found"}
+        raise HTTPException(status_code=404, detail="Patient not found")
 
     db_patient.name = patient.name
     db_patient.age = patient.age

@@ -15,14 +15,19 @@ export default function Dashboard() {
   const [gender, setGender] = useState<string | undefined>();
   const [age, setAge] = useState<number | undefined>();
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
+
+  const limit = 10;
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      getPatients(search || undefined, gender, age).then(setPatients);
+      getPatients(search || undefined, gender, age, page * limit, limit).then(
+        setPatients,
+      );
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [search, gender, age]);
+  }, [search, gender, age, page]);
 
   const handleSearch = async (query: string) => {
     const data = await getPatients(query, gender, age);
@@ -69,6 +74,22 @@ export default function Dashboard() {
         <AddPatientDialog onAdd={refreshPatients} />
       </div>
       <PatientsTable patients={patients} onDelete={handleDelete} />
+
+      <div className="flex gap-2 mt-4">
+        <button
+          onClick={() => setPage((p) => Math.max(p - 1, 0))}
+          className="px-3 py-1 border rounded hover:bg-gray-100 cursor-pointer"
+        >
+          Prev
+        </button>
+
+        <button
+          onClick={() => setPage((p) => p + 1)}
+          className="px-3 py-1 border rounded hover:bg-gray-100 cursor-pointer"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
