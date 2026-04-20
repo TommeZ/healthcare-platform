@@ -1,10 +1,15 @@
-export async function getPatients(name?: string, gender?: string) {
+export async function getPatients(
+  name?: string,
+  gender?: string,
+  age?: number,
+) {
   let url = "http://localhost:8000/patients";
 
   const params = new URLSearchParams();
 
   if (name) params.append("name", name);
   if (gender) params.append("gender", gender);
+  if (age) params.append("age", String(age));
 
   const queryString = params.toString();
 

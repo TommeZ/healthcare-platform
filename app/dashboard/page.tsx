@@ -8,17 +8,19 @@ import { Patient } from "../types";
 import { deletePatient, getPatients } from "@/lib/api";
 import { AddPatientDialog } from "@/components/AddPatientDialog";
 import { RadioDropdown } from "@/components/RadioDropdown";
+import { Input } from "@/components/ui/input";
 
 export default function Dashboard() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [gender, setGender] = useState<string | undefined>();
+  const [age, setAge] = useState<number | undefined>();
 
   useEffect(() => {
-    getPatients(undefined, gender).then(setPatients);
-  }, [gender]);
+    getPatients(undefined, gender, age).then(setPatients);
+  }, [gender, age]);
 
   const handleSearch = async (query: string) => {
-    const data = await getPatients(query, gender);
+    const data = await getPatients(query, gender, age);
     setPatients(data);
   };
 
@@ -38,6 +40,15 @@ export default function Dashboard() {
         <div className="w-full max-w-sm">
           <SearchBar onSearch={handleSearch} />
         </div>
+
+        <Input
+          type="number"
+          placeholder="Age"
+          onChange={(e) =>
+            setAge(e.target.value ? Number(e.target.value) : undefined)
+          }
+          className="w-26"
+        />
 
         <RadioDropdown
           value={gender || "All"}
