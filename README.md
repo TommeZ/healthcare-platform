@@ -141,3 +141,9 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 - The application is designed to run locally using standard development tools.
 
 - In a production environment, the app could be deployed to Vercel.
+
+- Containerisation (e.g. Docker) could be added to ensure consistent environments.
+
+- A production setup would likely use a persistent external database such as MongoDB instead of in-memory storage.
+
+- CI/CD pipelines could be introduced to automate testing, builds, and deployments.
