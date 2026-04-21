@@ -56,6 +56,6 @@ http://localhost:8000/docs
 
 ## Architecture
 
-![Architecture Diagram](public/architecture.png)
+![Architecture Diagram](https://raw.githubusercontent.com/TommeZ/healthcare-platform/main/public/architecture.png)
 
 This diagram shows the flow between the Next.js frontend, FastAPI backend, middleware, and database.
