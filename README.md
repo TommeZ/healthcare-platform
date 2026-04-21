@@ -9,7 +9,7 @@ This application allows users to manage patients and their prescriptions.
 Users can:
 
 - Add and manage patient records
-- Assign prescriptions to patients
+- Assign prescriptions to patients (accessible by clicking on a patient in the list)
 - Update prescription statuses
 - Search and filter patient data
 
@@ -131,6 +131,8 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 - Database relationships are structured to support efficient joins (Patient → Prescriptions).
 
 ## Trade-offs & Future Improvements
+
+- Prescriptions are managed within each patient’s detail view (accessible by clicking on a patient in the list), keeping related data grouped together.
 
 - Authentication is implemented as middleware validating the presence of a token. In a production system, this would be replaced with authentication and role-based access control.
 
