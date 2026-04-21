@@ -13,6 +13,15 @@ Users can:
 
 The system is built with a Next.js frontend and FastAPI backend, demonstrating a clean separation of concerns.
 
+## Technologies Used
+
+- Frontend: Next.js (React), TypeScript, Tailwind CSS
+- Backend: FastAPI (Python), SQLAlchemy ORM
+- Database: SQLite
+- API: RESTful architecture
+- Validation: Pydantic schemas
+- Middleware: Basic authentication handling
+
 ## Running the Application
 
 ### Backend (FastAPI)
@@ -114,7 +123,7 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 ### Scalability & Performance
 
-- Backend APIs are stateless enabling horizontal scaling.
+- Backend APIs are stateless which is more scalable and enables horizontal scaling.
 - Pagination (skip/limit) is used to efficiently handle large datasets.
 - Filtering is performed at the database query level to reduce unnecessary data transfer.
 - Database relationships are structured to support efficient joins (Patient → Prescriptions).
