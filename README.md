@@ -1,58 +1,65 @@
 # Healthcare Platform
 
-## Running the Frontend (Next.js)
+## Overview
 
-1. Navigate to the frontend folder:
+This application allows users to manage patients and their prescriptions.
 
-```bash
-cd app
-```
+Users can:
 
-2. Install dependencies:
+- Add and manage patient records
+- Assign prescriptions to patients
+- Update prescription statuses
+- Search and filter patient data
 
-```bash
-npm install
-```
+The system is built with a Next.js frontend and FastAPI backend, demonstrating a clean separation of concerns.
 
-3. Start the development server:
+## Running the Application
 
-```bash
-npm run dev
-```
+### Backend (FastAPI)
 
-4. Open in your browser:
+1. Navigate to the backend folder:
+   cd fastapi
 
-```text
-http://localhost:3000
-```
+2. Create a virtual environment:
+   python -m venv venv
+
+3. Activate the virtual environment:
+   source venv/bin/activate (Mac/Linux)
+   venv\Scripts\activate (Windows)
+
+4. Install dependencies:
+   pip install -r requirements.txt
+
+5. Start the server:
+   uvicorn api.main:app --reload
+
+6. Open in your browser:
+   http://localhost:8000/docs
 
 ---
 
-The frontend will communicate with the backend API running on:
+### Frontend (Next.js)
 
-```text
-http://localhost:8000
-```
+1. Navigate to the frontend folder:
+   cd app
 
-## Running the Backed (FastAPI)
+2. Install dependencies:
+   npm install
 
-1. Navigate to the backend folder:
+3. Start the development server:
+   npm run dev
 
-```bash
-cd fastapi
-```
+4. Open in your browser:
+   http://localhost:3000
 
-2. Start the server:
+---
 
-```bash
-uvicorn api.main:app --reload
-```
+### Notes
 
-3. Open in your browser:
+- The frontend communicates with the backend at:
+  http://localhost:8000
 
-```
-http://localhost:8000/docs
-```
+- Ensure the backend is running before starting the frontend.
 
 ## Architecture Flowchart
 
@@ -114,10 +121,14 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 ## Trade-offs & Future Improvements
 
-- Authentication is implemented as lightweight middleware validating the presence of a token. In a production system, this would be replaced with JWT-based authentication and role-based access control.
+- Authentication is implemented as middleware validating the presence of a token. In a production system, this would be replaced with authentication and role-based access control.
 
-- The system focuses on core patient and prescription flows. Additional entities like MedicalReport and User/Role are defined at a high level but not fully implemented to prioritise core functionality.
+- Additional entities like MedicalReport and User/Role are defined at a high level but not fully implemented to prioritise core functionality.
 
-- Filtering and pagination are implemented server-side to ensure scalability. With more time, caching strategies and database indexing would be added to improve performance.
+- Filtering and pagination are implemented server-side to ensure scalability.
 
 - The frontend focuses on essential user flows (search, filtering, CRUD operations). Additional features like editing patients and more advanced validation could be added.
+
+- The application is designed to run locally using standard development tools.
+
+- In a production environment, the frontend could be deployed to Vercel
