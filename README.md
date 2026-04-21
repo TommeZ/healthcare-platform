@@ -104,7 +104,7 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 ### Authentication & Authorisation
 
 - Implemented middleware to verify Authorization token for API routes.
-- Kept authentication lightweight for this task. in production this would use real authentication.
+- Kept authentication lightweight for this task. In production this would use proper authentication (e.g. JWT).
 - Role based access (Doctor, Pharmacist, Admin) considered in the data model for future extension.
 
 ### Handling Sensitive Health Data
@@ -131,4 +131,4 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 - The application is designed to run locally using standard development tools.
 
-- In a production environment, the frontend could be deployed to Vercel
+- In a production environment, the app could be deployed to Vercel.
