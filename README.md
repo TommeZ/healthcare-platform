@@ -56,6 +56,6 @@ http://localhost:8000/docs
 
 ## Architecture
 
-![Architecture Diagram](./public/architecture.png)
+![Architecture Diagram](docs/architecture.png)
 
 This diagram shows the flow between the Next.js frontend, FastAPI backend, middleware, and database.
