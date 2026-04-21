@@ -111,3 +111,13 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 - Pagination (skip/limit) is used to efficiently handle large datasets.
 - Filtering is performed at the database query level to reduce unnecessary data transfer.
 - Database relationships are structured to support efficient joins (Patient → Prescriptions).
+
+## Trade-offs & Future Improvements
+
+- Authentication is implemented as lightweight middleware validating the presence of a token. In a production system, this would be replaced with JWT-based authentication and role-based access control.
+
+- The system focuses on core patient and prescription flows. Additional entities like MedicalReport and User/Role are defined at a high level but not fully implemented to prioritise core functionality.
+
+- Filtering and pagination are implemented server-side to ensure scalability. With more time, caching strategies and database indexing would be added to improve performance.
+
+- The frontend focuses on essential user flows (search, filtering, CRUD operations). Additional features like editing patients and more advanced validation could be added.

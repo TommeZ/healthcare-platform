@@ -1,3 +1,8 @@
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: "test-token",
+};
+
 export async function getPatients(
   name?: string,
   gender?: string,
@@ -16,7 +21,7 @@ export async function getPatients(
 
   const url = `http://localhost:8000/patients?${params.toString()}`;
 
-  const res = await fetch(url);
+  const res = await fetch(url, { headers });
 
   if (!res.ok) throw new Error("Failed to fetch patients");
 
@@ -30,9 +35,7 @@ export async function createPatient(data: {
 }) {
   const res = await fetch("http://localhost:8000/patients", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify(data),
   });
 
@@ -46,6 +49,7 @@ export async function createPatient(data: {
 export async function deletePatient(id: number) {
   const res = await fetch(`http://localhost:8000/patients/${id}`, {
     method: "DELETE",
+    headers,
   });
 
   if (!res.ok) {
@@ -56,7 +60,9 @@ export async function deletePatient(id: number) {
 }
 
 export async function getPatient(id: number) {
-  const res = await fetch(`http://localhost:8000/patients/${id}`);
+  const res = await fetch(`http://localhost:8000/patients/${id}`, {
+    headers,
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch patient");
@@ -73,9 +79,7 @@ export async function addPrescription(
     `http://localhost:8000/patients/${patientId}/prescriptions`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify(data),
     },
   );
@@ -95,6 +99,7 @@ export async function updatePrescriptionStatus(
     `http://localhost:8000/patients/prescriptions/${prescriptionId}?status=${status}`,
     {
       method: "PATCH",
+      headers,
     },
   );
 
@@ -112,7 +117,7 @@ export async function getPrescriptions(status?: string) {
     url += `?status=${status}`;
   }
 
-  const res = await fetch(url);
+  const res = await fetch(url, { headers });
 
   if (!res.ok) {
     throw new Error("Failed to fetch prescriptions");
