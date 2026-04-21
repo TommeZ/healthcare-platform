@@ -2,6 +2,8 @@
 
 ## Overview
 
+[GitHub Repository](https://github.com/TommeZ/healthcare-platform)
+
 This application allows users to manage patients and their prescriptions.
 
 Users can:
