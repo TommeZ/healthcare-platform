@@ -54,8 +54,60 @@ uvicorn api.main:app --reload
 http://localhost:8000/docs
 ```
 
-## Architecture
+## Architecture Flowchart
 
 ![Architecture Flowchart](public/flowchart.png)
 
 This diagram shows the flow between the Next.js frontend, FastAPI backend, middleware, and database.
+
+## Data Model
+
+- Patient
+  - id
+  - name
+  - age
+  - gender
+
+- Prescription
+  - id
+  - medication
+  - status
+  - patient_id (FK)
+
+- MedicalReport
+  - id
+  - patient_id (FK)
+  - type (blood pressure etc)
+  - value
+  - created_at
+
+- User
+  - id
+  - email
+  - role (Doctor, Pharmacist, Admin)
+
+### Relationships
+
+- Patient → has many → Prescriptions
+- Patient → has many → MedicalReports
+- User → can manage → Patients / Prescriptions
+
+## Design Notes
+
+### Authentication & Authorisation
+
+- Implemented middleware to verify Authorization token for API routes.
+- Kept authentication lightweight for this task. in production this would use real authentication.
+- Role based access (Doctor, Pharmacist, Admin) considered in the data model for future extension.
+
+### Handling Sensitive Health Data
+
+- Input validation is handled using Pydantic schemas
+- Sensitive data access is restricted via middleware (authentication middleware)
+
+### Scalability & Performance
+
+- Backend APIs are stateless enabling horizontal scaling.
+- Pagination (skip/limit) is used to efficiently handle large datasets.
+- Filtering is performed at the database query level to reduce unnecessary data transfer.
+- Database relationships are structured to support efficient joins (Patient → Prescriptions).
