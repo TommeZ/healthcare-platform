@@ -1,4 +1,4 @@
-# Healthcare Platform (Backend)
+# Healthcare Platform
 
 ## Running the Frontend (Next.js)
 
@@ -34,7 +34,7 @@ The frontend will communicate with the backend API running on:
 http://localhost:8000
 ```
 
-## Running the API locally
+## Running the Backed (FastAPI)
 
 1. Navigate to the backend folder:
 
@@ -54,20 +54,8 @@ uvicorn api.main:app --reload
 http://localhost:8000/docs
 ```
 
-This will open Swagger UI where you can test the API endpoints.
+## Architecture
 
-## Available Endpoint
+![Architecture Diagram](./public/architecture.png)
 
-### Create Patient
-
-- **POST** `/patients/`
-
-Example request:
-
-```json
-{
-  "name": "John",
-  "age": 30,
-  "gender": "Male"
-}
-```
+This diagram shows the flow between the Next.js frontend, FastAPI backend, middleware, and database.
