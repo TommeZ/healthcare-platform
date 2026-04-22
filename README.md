@@ -12,6 +12,12 @@ Trade-offs were made (e.g. simplified authentication, patient details edit, cont
 
 The backend supports updating/deleting patient and prescription data via API endpoints (see patients.py & prescriptions.py) although full editing functionality is not yet added in the frontend UI.
 
+### Quick Notes
+
+- The login and sign-up buttons are placeholders and will redirect to the patient dashboard, as full authentication is not implemented in this version.
+
+- Clicking on a patient name opens their detail view, where associated prescriptions can be viewed and managed.
+
 [GitHub Repository](https://github.com/TommeZ/healthcare-platform)
 
 This application allows users to manage patients and their prescriptions.
@@ -158,7 +164,7 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 - Containerisation (e.g. Docker) could be added to ensure consistent environments.
 
-- A production setup would likely use a persistent external database such as PostgreSQL instead of instead of SQLite.
+- A production setup would likely use a persistent external database such as PostgreSQL instead of SQLite.
 
 - CI/CD pipelines could be introduced to automate testing, builds, and deployments.
 
