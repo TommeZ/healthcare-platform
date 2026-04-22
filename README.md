@@ -2,6 +2,14 @@
 
 ## Overview
 
+## Approach
+
+I approached this task by prioritising core patient and prescription CRUD operations to deliver the primary functional requirements within the time constraint.
+
+I focused on keeping the API structure simple and clear, with server-side filtering and pagination to support scalability.
+
+Trade-offs were made (e.g. simplified authentication, patient details edit), and I’ve outlined how these would be extended in a future production environment.
+
 [GitHub Repository](https://github.com/TommeZ/healthcare-platform)
 
 This application allows users to manage patients and their prescriptions.
@@ -51,7 +59,7 @@ The system is built with a Next.js frontend and FastAPI backend, demonstrating a
 
 ### Frontend (Next.js)
 
-1. Navigate to the frontend folder:
+1. Open a seperate terminal & Navigate to the frontend folder:
    cd app
 
 2. Install dependencies:
@@ -134,7 +142,7 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 - Prescriptions are managed within each patient’s detail view (accessible by clicking on a patient in the list), keeping related data grouped together.
 
-- Authentication is implemented as middleware validating the presence of a token. In a production system, this would be replaced with authentication and role-based access control.
+- Authentication is implemented as middleware validating the presence of a token. In a production system, this would be replaced with a full authentication flow (e.g. JWT) and role-based access control.
 
 - Additional entities like MedicalReport and User/Role are defined at a high level but not fully implemented to prioritise core functionality.
 
@@ -144,7 +152,7 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 - The application is designed to run locally using standard development tools.
 
-- In a production environment, the app could be deployed to Vercel.
+- In a production environment, the app could be deployed to Vercel or other cloud services.
 
 - Containerisation (e.g. Docker) could be added to ensure consistent environments.
 
