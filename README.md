@@ -148,13 +148,11 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 ## Trade-offs & Future Improvements
 
-- Prescriptions are managed within each patient’s detail view (accessible by clicking on a patient in the list), keeping related data grouped together.
-
 - Authentication is implemented as middleware validating the presence of a token. In a production system, this would be replaced with a full authentication flow (e.g. JWT), including user registration, login, and role-based access control.
 
 - Additional entities like MedicalReport and User/Role are defined at a high level but not fully implemented to prioritise core functionality.
 
-- Filtering and pagination are implemented server-side to ensure scalability.
+- Filtering and pagination are implemented server-side. Further optimisation such as indexing and caching could be added for large datasets.
 
 - The frontend focuses on essential user flows (search, filtering, CRUD operations). Additional features like editing patients and more advanced validation could be added.
 
@@ -167,7 +165,5 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 - A production setup would likely use a persistent external database such as PostgreSQL instead of SQLite.
 
 - CI/CD pipelines could be introduced to automate testing, builds, and deployments.
-
-- Database indexing could be introduced on frequently queried fields to improve query performance.
 
 - Caching to a store could be added for frequently accessed data (e.g. patient lists) to reduce database load and improve response times.
