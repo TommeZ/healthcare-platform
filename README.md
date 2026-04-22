@@ -4,11 +4,11 @@
 
 ## Approach
 
-I approached this task by prioritising core patient and prescription CRUD operations to deliver the primary functional requirements within the time constraint.
+I approached this task by prioritizing the core patient and prescription CRUD operations, aiming to deliver the main functional requirements within the time available.
 
 I focused on keeping the API structure simple and clear, with server-side filtering and pagination to support scalability.
 
-Trade-offs were made (e.g. simplified authentication, patient details edit), and I’ve outlined how these would be extended in a future production environment.
+Trade-offs were made (e.g. simplified authentication, patient details edit, containerisation), and I’ve outlined how these would be extended in a future production environment.
 
 The backend supports updating patient and prescription data via API endpoints (see patients.py & prescriptions.py) although full editing functionality is not yet added in the frontend UI.
 
