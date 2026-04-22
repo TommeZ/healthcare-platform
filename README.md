@@ -165,3 +165,5 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 - A production setup would likely use a persistent external database such as PostgreSQL instead of SQLite.
 
 - CI/CD pipelines could be introduced to automate testing, builds, and deployments.
+
+- The frontend prioritizes core functionality over polish. With more time, the UI could be further refined to improve overall design, usability, and presentation.
