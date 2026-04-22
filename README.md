@@ -144,9 +144,7 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 - Prescriptions are managed within each patient’s detail view (accessible by clicking on a patient in the list), keeping related data grouped together.
 
-- Authentication is implemented as middleware validating the presence of a token. In a production system, this would be replaced with a full authentication flow (e.g. JWT) and role-based access control.
-
-- With more complete Authentication a user registration system could be implemented
+- Authentication is implemented as middleware validating the presence of a token. In a production system, this would be replaced with a full authentication flow (e.g. JWT), including user registration, login, and role-based access control.
 
 - Additional entities like MedicalReport and User/Role are defined at a high level but not fully implemented to prioritise core functionality.
 
