@@ -10,7 +10,7 @@ I focused on keeping the API structure simple and clear, with server-side filter
 
 Trade-offs were made (e.g. simplified authentication, patient details edit, containerisation), and I’ve outlined how these would be extended in a future production environment.
 
-The backend supports updating patient and prescription data via API endpoints (see patients.py & prescriptions.py) although full editing functionality is not yet added in the frontend UI.
+The backend supports updating/deleting patient and prescription data via API endpoints (see patients.py & prescriptions.py) although full editing functionality is not yet added in the frontend UI.
 
 [GitHub Repository](https://github.com/TommeZ/healthcare-platform)
 
