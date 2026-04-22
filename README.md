@@ -152,7 +152,7 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 - Additional entities like MedicalReport and User/Role are defined at a high level but not fully implemented to prioritise core functionality.
 
-- Filtering and pagination are implemented server-side. Further optimisation such as indexing and caching could be added for large datasets.
+- Filtering and pagination are implemented server-side. Further optimization such as indexing and caching using a store could be added for large datasets.
 
 - The frontend focuses on essential user flows (search, filtering, CRUD operations). Additional features like editing patients and more advanced validation could be added.
 
@@ -165,5 +165,3 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 - A production setup would likely use a persistent external database such as PostgreSQL instead of SQLite.
 
 - CI/CD pipelines could be introduced to automate testing, builds, and deployments.
-
-- Caching to a store could be added for frequently accessed data (e.g. patient lists) to reduce database load and improve response times.
