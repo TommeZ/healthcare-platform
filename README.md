@@ -88,7 +88,7 @@ The system is built with a Next.js frontend and FastAPI backend, demonstrating a
 
 This diagram shows the flow between the Next.js frontend, FastAPI backend, middleware, and database.
 
-## Data Model
+## Data Model (See models.py)
 
 - Patient
   - id
@@ -161,3 +161,7 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 - A production setup would likely use a persistent external database such as PostgreSQL instead of instead of SQLite.
 
 - CI/CD pipelines could be introduced to automate testing, builds, and deployments.
+
+- Database indexing could be introduced on frequently queried fields to improve query performance.
+
+- Caching to a store could be added for frequently accessed data (e.g. patient lists) to reduce database load and improve response times.
