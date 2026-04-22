@@ -146,6 +146,8 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 - Authentication is implemented as middleware validating the presence of a token. In a production system, this would be replaced with a full authentication flow (e.g. JWT) and role-based access control.
 
+- With more complete Authentication a user registration system could be implemented
+
 - Additional entities like MedicalReport and User/Role are defined at a high level but not fully implemented to prioritise core functionality.
 
 - Filtering and pagination are implemented server-side to ensure scalability.
