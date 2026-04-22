@@ -10,6 +10,8 @@ I focused on keeping the API structure simple and clear, with server-side filter
 
 Trade-offs were made (e.g. simplified authentication, patient details edit), and I’ve outlined how these would be extended in a future production environment.
 
+The backend supports updating patient and prescription data via API endpoints (see patients.py & prescriptions.py) although full editing functionality is not yet added in the frontend UI.
+
 [GitHub Repository](https://github.com/TommeZ/healthcare-platform)
 
 This application allows users to manage patients and their prescriptions.
@@ -59,7 +61,7 @@ The system is built with a Next.js frontend and FastAPI backend, demonstrating a
 
 ### Frontend (Next.js)
 
-1. Open a seperate terminal & Navigate to the frontend folder:
+1. Open a separate terminal & Navigate to the frontend folder:
    cd app
 
 2. Install dependencies:
@@ -156,6 +158,6 @@ This diagram shows the flow between the Next.js frontend, FastAPI backend, middl
 
 - Containerisation (e.g. Docker) could be added to ensure consistent environments.
 
-- A production setup would likely use a persistent external database such as MongoDB instead of in-memory storage.
+- A production setup would likely use a persistent external database such as PostgreSQL instead of instead of SQLite.
 
 - CI/CD pipelines could be introduced to automate testing, builds, and deployments.
