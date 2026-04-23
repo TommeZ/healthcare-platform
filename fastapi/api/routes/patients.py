@@ -11,7 +11,7 @@ router = APIRouter(
     prefix="/patients"
 )
 
-@router.get("/")
+@router.get("")
 def get_patients(db: db_dependency, skip: int = 0, limit: int = 10, name: Optional[str] = None, gender: Optional[str] = None, age: Optional[int] = None,):
     
     query = db.query(models.Patient)

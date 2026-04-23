@@ -29,11 +29,6 @@ export default function Dashboard() {
     return () => clearTimeout(timeout);
   }, [search, gender, age, page]);
 
-  const handleSearch = async (query: string) => {
-    const data = await getPatients(query, gender, age);
-    setPatients(data);
-  };
-
   const refreshPatients = async () => {
     const data = await getPatients(undefined, gender, age);
     setPatients(data);

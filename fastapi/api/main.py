@@ -20,7 +20,6 @@ app.add_middleware(
 )
 
 async def auth_middleware(request: Request, call_next):
-    print('hi' + request.method)
 
     if request.method == "OPTIONS":
         return await call_next(request)
