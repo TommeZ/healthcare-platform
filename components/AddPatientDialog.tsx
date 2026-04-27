@@ -59,7 +59,7 @@ export function AddPatientDialog({ onAdd }: { onAdd: () => void }) {
           </DialogHeader>
           <FieldGroup>
             <Field>
-              <Label htmlFor="name-1">Name</Label>
+              <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
                 name="name"
