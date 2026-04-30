@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from api.schemas.patient import PatientCreate
-from api.schemas.prescription import PrescriptionCreate
 from api import models
 from api.deps import db_dependency
 from typing import Optional
